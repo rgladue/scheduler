@@ -18,3 +18,16 @@ for (const item of appArr) {
 }
 return results;
 }
+
+
+export const getInterview = (state, interview) => {
+  if (interview === null || !interview) {
+    return null;
+  }
+
+  for (const interviewer of Object.values(state.interviewers)) {
+    if (interview.interviewer === interviewer.id) {
+      return { student: interview.student, interviewer: interviewer };
+    }
+  }
+}

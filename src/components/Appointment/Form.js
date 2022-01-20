@@ -17,7 +17,7 @@ const [interviewer, setInterviewer] = useState(props.interviewer || null);
 return (
   <main className="appointment__card appointment__card--create">
   <section className="appointment__card-left">
-    <form autoComplete="off">
+    <form onSubmit={event => event.preventDefault()} autoComplete="off">
       <input
         className="appointment__create-input text--semi-bold"
         name="name"

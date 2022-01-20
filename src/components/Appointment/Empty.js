@@ -7,3 +7,5 @@ const Empty = function (props) {
     </main>
   );
 };
+
+export default Empty;

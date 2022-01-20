@@ -51,8 +51,12 @@ export default function Application() {
   const appItem = appointments.map((appointment) => (
     <Appointment key={appointment.id} {...appointment} />
   ))
-  const [days, setDays] = useState([]);
-  const [day, setDay] = useState("Monday");
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    appointments: {}
+  });
 
   useEffect(() => {
     axios.get(`http://localhost:8001/api/days`)

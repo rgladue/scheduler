@@ -20,6 +20,14 @@ return results;
 }
 
 
+
+export const getInterviewersForDay = (state, day) => {
+  const interviewersForDay = state.days.filter(i => i.name === day)[0]? state.days.filter(i => i.name === day)[0].interviewers : [];
+  const filteredInterviewers = interviewersForDay.map(interviewer => state.interviewers[interviewer]);
+  return filteredInterviewers;
+};
+
+
 export const getInterview = (state, interview) => {
   if (interview === null || !interview) {
     return null;

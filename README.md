@@ -1,4 +1,16 @@
 # Interview Scheduler
+⭐⭐⭐⭐⭐
+SPA built using the following technologies:
+-PostgreSQL
+-ReactJS
+-JSX/HTML/CSS/SCSS
+-Jest
+-Cypress
+-Storybook
+
+
+Review appointments scheduled for the week, along with the ability to book, cancel, and edit all appointments.
+
 
 ## Setup
 

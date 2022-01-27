@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "../Button";
 import InterviewerList from "components/InterviewerList";
 
-
 const Form = function (props) {
   const [error, setError] = useState("");
 
@@ -16,13 +15,13 @@ const Form = function (props) {
       setError("Student name cannot be blank");
       return;
     }
-  
+    setError("");
     props.onSave(student, interviewer);
-  }  
- 
+  }
+
   const cancel = () => {
     reset();
-    
+    setError("");
     props.onCancel();
   };
   const [student, setStudent] = useState(props.student || "");

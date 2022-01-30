@@ -40,7 +40,6 @@ const useApplicationData = () => {
   // BOOKINTERVIEW FUNCTION
 
   function bookInterview(id, interview) {
-   
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -49,28 +48,19 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-
-    setState({
-      ...state,
-      appointments,
+    const targetDay = state.days.find((day) => day.appointments.includes(id));
+    const days = state.days.map((day) => {
+      if (
+        day.name === targetDay.name &&
+        state.appointments[id].interview === null
+      ) {
+        return { ...day, spots: day.spots - 1 };
+      } else {
+        return day;
+      }
     });
-
-    return axios.put(`/api/appointments/${id}`, { interview })
-    .then((res) => {
-      //filter through days to check if day name matches day of new appointment and adjust spots +1
-      const spots =
-        state.days.filter((curr) => curr.name === state.day)[0].spots - 1;
-      const days = state.days.map((current) => {
-        if (current.name === state.day) {
-          return { ...current, spots };
-        }
-        return { ...current };
-      });
-
-      setState((prev) => ({
-        ...prev,
-        days,
-      }));
+    return axios.put(`/api/appointments/${id}`, appointment).then(() => {
+      setState({ ...state, appointments, days });
     });
   }
 
@@ -85,30 +75,16 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-
-    setState({
-      ...state,
-      appointments,
+    const targetDay = state.days.find((day) => day.appointments.includes(id));
+    const days = state.days.map((day) => {
+      if (day.name === targetDay.name) {
+        return { ...day, spots: day.spots + 1 };
+      } else {
+        return day;
+      }
     });
-
-    return axios.delete(`/api/appointments/${id}`)
-    .then((res) => {
-      //filter through days to check if day name matches day of deleted appointment and adjust spots -1
-      const spots =
-        state.days.filter((date) => date.name === state.day)[0].spots + 1;
-
-      const days = state.days.map((current) => {
-        if (current.name === state.day) {
-          return { ...current, spots };
-        }
-        return { ...current };
-      });
-
-      setState((prev) => ({
-        ...prev,
-        appointments,
-        days,
-      }));
+    return axios.delete(`/api/appointments/${id}`, appointment).then(() => {
+      setState({ ...state, appointments, days });
     });
   }
 

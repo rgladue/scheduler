@@ -24,12 +24,11 @@ const Appointment = function (props) {
   );
 
   function save(name, interviewer) {
-    console.log(name, interviewer);
     const interview = {
       student: name,
       interviewer,
     };
-    transition(SAVING);
+    transition(SAVING, true);
 
     props
       .bookInterview(props.id, interview)
